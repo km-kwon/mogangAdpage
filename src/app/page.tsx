@@ -3,6 +3,18 @@ import { useState } from "react";
 
 import Main_Body from "./pageStyle";
 
+import axios from "axios";
+
+// TODO : pending 상태일 때 버튼 클릭 안되도록
+// TODO : "error":"already-submitted" 시 처리
+// TODO : 전송 완료 시 - 전송 완료되었습니다 팝업? + input 값 초기화
+// TODO : 이메일 형식 검증 - 백에서 응답 받고 할지, 프론트에서 할지 ? (form태그 안 쓰면 자동 툴팁 안 뜸, form태그 쓰면 제출 시 새로고침 되는데 해결방법 생각해봐야함. 근디 걍 백에서 받아서 해도 될듯)
+// TODO : refactor - api 파일 분리하자 !
+
+// ! 배포 시 API URL 수정 필요
+const apiUrl = "http://localhost:3001";
+
+// *
 export default function Home() {
   const [checked, setChecked] = useState(false);
   const [email, setemail] = useState("");
@@ -13,7 +25,6 @@ export default function Home() {
       currentTarget: { value },
     } = event;
     setemail(value);
-    console.log(email);
   };
   const opinionInputHandle = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -22,16 +33,42 @@ export default function Home() {
       currentTarget: { value },
     } = event;
     setopinion(value);
-    console.log(opinion);
   };
 
-  const emailSubmit = () => {
-    console.log(email);
+  const emailSubmit = async () => {
+    try {
+      const requestData = {
+        email: email,
+      };
+      console.log("req:", requestData);
+
+      const response = await axios.post(`${apiUrl}/email`, requestData);
+
+      console.log("Response Data:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  const opinionSubmit = () => {
-    console.log(opinion);
+  const opinionSubmit = async () => {
+    try {
+      const requestData = {
+        opinion: opinion,
+      };
+      console.log("req:", requestData);
+
+      const response = await axios.post(`${apiUrl}/opinion`, requestData);
+
+      console.log("Response Data:", response.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
+  const isSubmitButtonEnabled = email !== "" && checked;
+
+  const isOpinionButtonEnabled = opinion.trim() !== "";
+
   return (
     <Main_Body>
       <div id="first_introduction">
@@ -108,13 +145,18 @@ export default function Home() {
         </div>
         <div className="inputContainer">
           <input
-            type="text"
+            type="email"
             className="input"
             value={email}
             placeholder="알림 받을 메일을 적어주세요"
             onChange={emailInputHandle}
           />
-          <button onClick={emailSubmit} className="submitBtn1">
+
+          <button
+            onClick={emailSubmit}
+            className={`submitBtn1 ${isSubmitButtonEnabled ? "" : "disabled"}`}
+            disabled={!isSubmitButtonEnabled}
+          >
             전송
           </button>
         </div>
@@ -143,10 +185,14 @@ export default function Home() {
             placeholder="예시. 커리큘럼 추천, 포트폴리오 공유 등"
             value={opinion}
             onChange={opinionInputHandle}
-            form="inputContainer"
+            minLength={10} // !
           ></textarea>
         </div>
-        <button onClick={opinionSubmit} className="submitBtn2">
+        <button
+          onClick={opinionSubmit}
+          className={`submitBtn2 ${isOpinionButtonEnabled ? "" : "disabled"}`}
+          disabled={!isOpinionButtonEnabled}
+        >
           전송
         </button>
       </div>

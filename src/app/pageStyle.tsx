@@ -182,6 +182,7 @@ const Main_Body = styled.div`
     background-color: ${color3};
     width: 4rem;
     height: 2.5rem;
+    cursor: pointer;
   }
   .submitBtn2 {
     display: flex;
@@ -195,6 +196,11 @@ const Main_Body = styled.div`
     height: 2.5rem;
     border: none;
     margin: 1rem 0 0 auto;
+    cursor: pointer;
+  }
+  .disabled {
+    background-color: gray;
+    cursor: not-allowed;
   }
   .subexplain {
     color: #3e3e3e;
