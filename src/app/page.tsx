@@ -5,10 +5,9 @@ import Main_Body from "./pageStyle";
 
 import axios from "axios";
 
-// TODO : pending 상태일 때 버튼 클릭 안되도록
-// TODO : "error":"already-submitted" 시 처리
-// TODO : 전송 완료 시 - 전송 완료되었습니다 팝업? + input 값 초기화
-// TODO : 이메일 형식 검증 - 백에서 응답 받고 할지, 프론트에서 할지 ? (form태그 안 쓰면 자동 툴팁 안 뜸, form태그 쓰면 제출 시 새로고침 되는데 해결방법 생각해봐야함. 근디 걍 백에서 받아서 해도 될듯)
+import { message } from "antd";
+import { manageEmailError, manageOpinionError } from "./util/errors";
+
 // TODO : refactor - api 파일 분리하자 !
 
 // ! 배포 시 API URL 수정 필요
@@ -17,51 +16,77 @@ const apiUrl = "http://localhost:3001";
 // *
 export default function Home() {
   const [checked, setChecked] = useState(false);
-  const [email, setemail] = useState("");
-  const [opinion, setopinion] = useState("");
+  const [email, setEmail] = useState("");
+  const [opinion, setOpinion] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const emailInputHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       currentTarget: { value },
     } = event;
-    setemail(value);
+    setEmail(value);
   };
+
   const opinionInputHandle = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const {
       currentTarget: { value },
     } = event;
-    setopinion(value);
+
+    setOpinion(value);
   };
 
   const emailSubmit = async () => {
-    try {
-      const requestData = {
-        email: email,
-      };
-      console.log("req:", requestData);
+    if (!isButtonDisabled) {
+      setIsButtonDisabled(true);
 
-      const response = await axios.post(`${apiUrl}/email`, requestData);
+      try {
+        const requestData = {
+          email: email,
+        };
+        console.log("req:", requestData);
 
-      console.log("Response Data:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
+        const response = await axios.post(`${apiUrl}/email`, requestData);
+
+        if (response.data.ok) {
+          message.success("이메일 등록 성공!");
+        }
+
+        console.log("Response Data:", response.data);
+      } catch (e) {
+        if (axios.isAxiosError(e)) manageEmailError(e);
+      }
+
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 2000);
     }
   };
-
   const opinionSubmit = async () => {
-    try {
-      const requestData = {
-        opinion: opinion,
-      };
-      console.log("req:", requestData);
+    if (!isButtonDisabled) {
+      setIsButtonDisabled(true);
 
-      const response = await axios.post(`${apiUrl}/opinion`, requestData);
+      try {
+        const requestData = {
+          opinion: opinion,
+        };
+        console.log("req:", requestData);
 
-      console.log("Response Data:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
+        const response = await axios.post(`${apiUrl}/opinion`, requestData);
+
+        if (response.data.ok) {
+          message.success("의견 등록 성공!");
+        }
+
+        console.log("Response Data:", response.data);
+      } catch (e) {
+        if (axios.isAxiosError(e)) manageOpinionError(e);
+      }
+
+      setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 2000);
     }
   };
 
@@ -155,7 +180,7 @@ export default function Home() {
           <button
             onClick={emailSubmit}
             className={`submitBtn1 ${isSubmitButtonEnabled ? "" : "disabled"}`}
-            disabled={!isSubmitButtonEnabled}
+            disabled={isButtonDisabled || !isSubmitButtonEnabled}
           >
             전송
           </button>
@@ -167,7 +192,9 @@ export default function Home() {
           </div>
           <input
             type="checkbox"
-            onChange={(e) => setChecked(e.target.checked)}
+            onChange={(e) => {
+              setChecked(e.target.checked);
+            }}
           />
         </div>
       </div>
@@ -191,7 +218,7 @@ export default function Home() {
         <button
           onClick={opinionSubmit}
           className={`submitBtn2 ${isOpinionButtonEnabled ? "" : "disabled"}`}
-          disabled={!isOpinionButtonEnabled}
+          disabled={isButtonDisabled || !isOpinionButtonEnabled}
         >
           전송
         </button>
