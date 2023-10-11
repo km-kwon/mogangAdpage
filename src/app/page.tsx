@@ -5,6 +5,8 @@ import Main_Body from "./pageStyle";
 
 import axios from "axios";
 
+import { message } from "antd";
+
 // TODO : pending 상태일 때 버튼 클릭 안되도록
 // TODO : "error":"already-submitted" 시 처리
 // TODO : 전송 완료 시 - 전송 완료되었습니다 팝업? + input 값 초기화
@@ -19,6 +21,8 @@ export default function Home() {
   const [checked, setChecked] = useState(false);
   const [email, setemail] = useState("");
   const [opinion, setopinion] = useState("");
+  const [emailAbled, setemailAbled] = useState(false);
+  const [messageAbled, setmessageAbled] = useState(false);
 
   const emailInputHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -32,10 +36,15 @@ export default function Home() {
     const {
       currentTarget: { value },
     } = event;
+
     setopinion(value);
   };
 
   const emailSubmit = async () => {
+    setemailAbled(false);
+    setTimeout(() => {
+      setemailAbled(true);
+    }, 2000);
     try {
       const requestData = {
         email: email,
@@ -44,9 +53,15 @@ export default function Home() {
 
       const response = await axios.post(`${apiUrl}/email`, requestData);
 
+      if (response.data.ok) {
+        message.success("이메일 등록 성공!");
+      }
+
       console.log("Response Data:", response.data);
     } catch (error) {
       console.error("Error:", error);
+
+      message.error("이미 제출된 이메일입니다!");
     }
   };
 
@@ -64,8 +79,6 @@ export default function Home() {
       console.error("Error:", error);
     }
   };
-
-  const isSubmitButtonEnabled = email !== "" && checked;
 
   const isOpinionButtonEnabled = opinion.trim() !== "";
 
@@ -154,8 +167,8 @@ export default function Home() {
 
           <button
             onClick={emailSubmit}
-            className={`submitBtn1 ${isSubmitButtonEnabled ? "" : "disabled"}`}
-            disabled={!isSubmitButtonEnabled}
+            className={`submitBtn1 ${emailAbled ? "" : "disabled"}`}
+            disabled={!emailAbled}
           >
             전송
           </button>
@@ -167,7 +180,14 @@ export default function Home() {
           </div>
           <input
             type="checkbox"
-            onChange={(e) => setChecked(e.target.checked)}
+            onChange={(e) => {
+              setChecked(e.target.checked);
+              if (checked) {
+                setemailAbled(false);
+              } else {
+                setemailAbled(true);
+              }
+            }}
           />
         </div>
       </div>
