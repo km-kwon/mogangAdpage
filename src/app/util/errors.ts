@@ -16,8 +16,11 @@ export const manageEmailError = (error: AxiosError) => {
       }
       break;
 
+    case 408:
+      message.error("다시 입력해주세요!");
+
     case 409:
-      message.error("이미 제출된 이메일입니다!");
+      message.error("이미 제출하셨습니다! ");
       break;
 
     case 500:
@@ -36,6 +39,9 @@ export const manageOpinionError = (error: AxiosError) => {
     case 400:
       message.error("내용을 입력해주세요!");
       break;
+
+    case 408:
+      message.error("다시 입력해주세요!");
 
     case 500:
       message.error("잠시 후에 다시 시도해주세요!");
