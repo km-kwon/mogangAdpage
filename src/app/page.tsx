@@ -67,26 +67,33 @@ export default function Home() {
     if (!isButtonDisabled) {
       setIsButtonDisabled(true);
 
-      try {
-        const requestData = {
-          opinion: opinion,
-        };
-        console.log("req:", requestData);
+      if (email.length > 10) {
+        try {
+          const requestData = {
+            opinion: opinion,
+          };
+          console.log("req:", requestData);
 
-        const response = await axios.post(`${apiUrl}/opinion`, requestData);
+          const response = await axios.post(`${apiUrl}/opinion`, requestData);
 
-        if (response.data.ok) {
-          message.success("의견 등록 성공!");
+          if (response.data.ok) {
+            message.success("의견 등록 성공!");
+          }
+
+          console.log("Response Data:", response.data);
+        } catch (e) {
+          if (axios.isAxiosError(e)) manageOpinionError(e);
         }
 
-        console.log("Response Data:", response.data);
-      } catch (e) {
-        if (axios.isAxiosError(e)) manageOpinionError(e);
+        setTimeout(() => {
+          setIsButtonDisabled(false);
+        }, 2000);
+      } else {
+        message.error("최소 10글자 이상 작성해주세요!");
+        setTimeout(() => {
+          setIsButtonDisabled(false);
+        }, 2000);
       }
-
-      setTimeout(() => {
-        setIsButtonDisabled(false);
-      }, 2000);
     }
   };
 
@@ -166,7 +173,7 @@ export default function Home() {
       <div id="alarm">
         <div className="name">
           <img src="/bell.png" alt="벨" className="icon" />
-          <span className="title_2">웹 런칭시 알림 받기</span>
+          <span className="title_2">웹 런칭 시 알림 받기</span>
         </div>
         <div className="inputContainer">
           <input
