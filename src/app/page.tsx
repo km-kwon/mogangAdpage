@@ -30,6 +30,7 @@ export default function Home() {
     } = event;
     setemail(value);
   };
+
   const opinionInputHandle = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
