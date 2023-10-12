@@ -11,7 +11,8 @@ import { manageEmailError, manageOpinionError } from "./util/errors";
 // TODO : refactor - api 파일 분리하자 !
 
 // ! 배포 시 API URL 수정 필요
-const apiUrl = "http://localhost:3001";
+//const apiUrl = "http://localhost:3001";
+const apiUrl = "http://mogangsurvey.kro.kr/api";
 
 // *
 export default function Home() {
@@ -67,7 +68,7 @@ export default function Home() {
     if (!isButtonDisabled) {
       setIsButtonDisabled(true);
 
-      if (email.length > 10) {
+      if (opinion.length > 5) {
         try {
           const requestData = {
             opinion: opinion,
@@ -89,7 +90,7 @@ export default function Home() {
           setIsButtonDisabled(false);
         }, 2000);
       } else {
-        message.error("최소 10글자 이상 작성해주세요!");
+        message.error("최소 5글자 이상 작성해주세요!");
         setTimeout(() => {
           setIsButtonDisabled(false);
         }, 2000);
@@ -126,8 +127,8 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 1rem 0",
-            fontSize: "1.2rem",
+            margin: "0 0 2rem 0",
+            fontSize: "0.8rem",
             fontWeight: "800",
           }}
         >
@@ -144,8 +145,8 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 1rem 0",
-            fontSize: "1.2rem",
+            margin: "0 0 2rem 0",
+            fontSize: "0.8rem",
             fontWeight: "800",
           }}
         >
@@ -162,8 +163,8 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 1rem 0",
-            fontSize: "1.2rem",
+            margin: "0 0 2rem 0",
+            fontSize: "0.8rem",
             fontWeight: "800",
           }}
         >
@@ -208,7 +209,7 @@ export default function Home() {
       <div id="message">
         <div className="name">
           <img src="/message.png" alt="벨" className="icon" />
-          <span className="title_2">여러분의 이야기를 듣고 싶습니다</span>
+          <span className="title_2">의견을 남겨주세요!</span>
         </div>
         <span className="subexplain">
           필요하시거나 원하시는 기능을 말씀해주세요!

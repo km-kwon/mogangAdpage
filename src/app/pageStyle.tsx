@@ -45,13 +45,13 @@ const Main_Body = styled.div`
     font-weight: 800;
   }
   .image {
-    width: 95%;
+    width: 100%;
   }
 
   #first_introduction {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: cen ter;
     align-items: center;
   }
   #first_introduction div {
@@ -62,12 +62,13 @@ const Main_Body = styled.div`
   #title {
     font-size: 3.5rem;
     font-weight: 800;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 1rem 0 1rem 0;
+    font-family: "Jua", sans-serif;
   }
   #subIntroduction {
     font-size: 0.8rem;
     font-weight: 600;
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
   }
 
   #alarm {
@@ -93,7 +94,7 @@ const Main_Body = styled.div`
     color: gray;
     margin: 1rem 0 1rem 0;
     width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   #agree input {
     height: 1.3rem;
@@ -109,17 +110,18 @@ const Main_Body = styled.div`
   .title_1 {
     color: ${color4};
     font-weight: 900;
-    font-size: 1.8rem;
-    margin: 1.5rem 0 1rem 0;
+    font-size: 1.4rem;
+    margin: 2rem 0 2rem 0;
   }
   .title_2 {
     font-weight: 900;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
+    margin: 0 0 0 0.7rem;
   }
   .explain_1 {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    margin: 1rem 0 0 0;
+    margin: 2rem 0 0.5rem 0;
   }
   .icon {
     width: 3rem;
@@ -160,6 +162,7 @@ const Main_Body = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 0.9rem;
   }
 
   .input_information {
@@ -171,6 +174,8 @@ const Main_Body = styled.div`
   }
   .input_information::placeholder {
     color: #919191;
+    font-size: 0.8rem;
+    font-weight: 900;
   }
   .submitBtn1 {
     display: flex;
@@ -205,6 +210,7 @@ const Main_Body = styled.div`
   .subexplain {
     color: #3e3e3e;
     font-weight: 800;
+    font-size: 0.8rem;
     margin: 0.2rem 0 1rem 0;
   }
 `;
