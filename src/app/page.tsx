@@ -127,7 +127,7 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 2rem 0",
+            margin: "0 0 2.5rem 0",
             fontSize: "0.8rem",
             fontWeight: "800",
           }}
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 2rem 0",
+            margin: "0 0 2.5rem 0",
             fontSize: "0.8rem",
             fontWeight: "800",
           }}
@@ -163,7 +163,7 @@ export default function Home() {
         </div>
         <span
           style={{
-            margin: "0 0 2rem 0",
+            margin: "0 0 2.5rem 0",
             fontSize: "0.8rem",
             fontWeight: "800",
           }}
@@ -217,7 +217,7 @@ export default function Home() {
         <div id="inputContainer">
           <textarea
             className="input_information"
-            placeholder="예시. 커리큘럼 추천, 포트폴리오 공유 등"
+            placeholder="ex) 커리큘럼 추천, 포트폴리오 공유 등"
             value={opinion}
             onChange={opinionInputHandle}
             minLength={10} // !

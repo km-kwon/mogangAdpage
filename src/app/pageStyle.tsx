@@ -111,7 +111,7 @@ const Main_Body = styled.div`
     color: ${color4};
     font-weight: 900;
     font-size: 1.4rem;
-    margin: 2rem 0 2rem 0;
+    margin: 3rem 0 2rem 0;
   }
   .title_2 {
     font-weight: 900;
@@ -124,8 +124,8 @@ const Main_Body = styled.div`
     margin: 2rem 0 0.5rem 0;
   }
   .icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   .name {
     display: flex;
@@ -134,6 +134,7 @@ const Main_Body = styled.div`
     margin: 0.5rem 0 0.5rem 0;
   }
   .inputContainer {
+    height: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -143,6 +144,7 @@ const Main_Body = styled.div`
     width: 100%;
   }
   #inputContainer {
+    height: 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -152,30 +154,32 @@ const Main_Body = styled.div`
     width: 100%;
   }
   .input {
-    height: 1.5rem;
+    height: 1rem;
     width: 80%;
     border: none;
     outline: none;
-    font-size: 1.3rem;
+    font-size: 0.8rem;
   }
   .input::placeholder {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .input_information {
-    height: 7rem;
+    height: 4rem;
     width: 100%;
     border: none;
     outline: none;
-    font-size: 1.3rem;
+    font-size: 0.8rem;
+    padding: 0.5rem;
   }
   .input_information::placeholder {
     color: #919191;
     font-size: 0.8rem;
-    font-weight: 900;
+    margin: 1rem 0 0 0;
+    font-weight: 500;
   }
   .submitBtn1 {
     display: flex;
@@ -185,8 +189,8 @@ const Main_Body = styled.div`
     border: none;
     color: white;
     background-color: ${color3};
-    width: 4rem;
-    height: 2.5rem;
+    width: 3.5rem;
+    height: 2rem;
     cursor: pointer;
   }
   .submitBtn2 {
@@ -197,10 +201,10 @@ const Main_Body = styled.div`
     color: white;
     background-color: ${color3};
     padding: 0.5rem;
-    width: 4rem;
-    height: 2.5rem;
+    width: 3.5rem;
+    height: 2rem;
     border: none;
-    margin: 1rem 0 0 auto;
+    margin: 0.5rem 0 0 auto;
     cursor: pointer;
   }
   .disabled {
